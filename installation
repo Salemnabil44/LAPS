@@ -8,10 +8,24 @@
 
 étape 5 : Ce script récupère tous les ordinateurs dans le domaine et exécute Find-AdmPwdExtendedrights pour chaque ordinateur, puis formate les résultats en tableau.
 
-$computers = Get-ADComputer -Filter * -SearchBase "DC=laboratoire,DC=lan"
+# Importer le module ActiveDirectory si ce n'est pas déjà fait
+Import-Module ActiveDirectory
+
+# Récupérer tous les ordinateurs du domaine
+$computers = Get-ADComputer -Filter * -Properties DistinguishedName
+
+# Initialiser une liste pour stocker les résultats
+$results = @()
+
+# Itérer sur chaque ordinateur et trouver les droits étendus
 foreach ($computer in $computers) {
-Find-AdmPwdExtendedrights -Identity $computer.DistinguishedName | Format-Table
+    $rights = Find-AdmPwdExtendedrights -Identity $computer.DistinguishedName
+    # Ajouter les résultats à la liste
+    $results += $rights
 }
+
+# Afficher les résultats sous forme de tableau
+$results | Format-Table
 
 étape 6:
 
