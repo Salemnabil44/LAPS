@@ -1,8 +1,13 @@
 étape 1 : connaitre le nom du domaine > Get-ADForest | Select-Object Name, SchemaMaster
+
 étape 2 : importer le module laps > Import-Module AdmPwd.PS
+
 étape 3 : inscription des nouveaux attributs > Update-AdmPwdADSchema
+
 étape 4 : applique la permission à toutes les unités d’organisation. >Set-AdmPwdComputerSelfPermission -OrgUnit "DC=it-connect,DC=local"
+
 étape 5 : Ce script récupère tous les ordinateurs dans le domaine et exécute Find-AdmPwdExtendedrights pour chaque ordinateur, puis formate les résultats en tableau.
+
 $computers = Get-ADComputer -Filter * -SearchBase "DC=it-connect,DC=local"
 foreach ($computer in $computers) {
     Find-AdmPwdExtendedrights -Identity $computer.DistinguishedName | Format-Table
