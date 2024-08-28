@@ -8,7 +8,7 @@
 
 étape 5 : Ce script récupère tous les ordinateurs dans le domaine et exécute Find-AdmPwdExtendedrights pour chaque ordinateur, puis formate les résultats en tableau.
 
-$computers = Get-ADComputer -Filter * -SearchBase "DC=it-connect,DC=local"
+$computers = Get-ADComputer -Filter * -SearchBase "DC=it-laboratoire,DC=lan"
 foreach ($computer in $computers) {
 Find-AdmPwdExtendedrights -Identity $computer.DistinguishedName | Format-Table
 }
