@@ -10,7 +10,7 @@
 
 $computers = Get-ADComputer -Filter * -SearchBase "DC=it-connect,DC=local"
 foreach ($computer in $computers) {
-    Find-AdmPwdExtendedrights -Identity $computer.DistinguishedName | Format-Table
+Find-AdmPwdExtendedrights -Identity $computer.DistinguishedName | Format-Table
 }
 
 étape 6:
